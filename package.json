@@ -1,0 +1,19 @@
+{
+  "name": "puppeteer-canavas-login",
+  "version": "1.0.0",
+  "description": "automated login to canvas",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byuitechops/puppeteer-canavas-login.git"
+  },
+  "author": "Zach Heiner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/byuitechops/puppeteer-canavas-login/issues"
+  },
+  "homepage": "https://github.com/byuitechops/puppeteer-canavas-login#readme"
+}
