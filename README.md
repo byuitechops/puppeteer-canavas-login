@@ -1,4 +1,4 @@
-# puppeteer-canavas-login
+# puppeteer-canvas-login
 
 ## Description 
 This can be added to any canvas automating program so that the login is already automated
