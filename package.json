@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/byuitechops/puppeteer-canavas-login/issues"
   },
-  "homepage": "https://github.com/byuitechops/puppeteer-canavas-login#readme"
+  "homepage": "https://github.com/byuitechops/puppeteer-canavas-login#readme",
+  "dependencies": {
+    "save": "^2.3.3"
+  }
 }
