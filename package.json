@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/byuitechops/puppeteer-canavas-login#readme",
   "dependencies": {
+    "puppeteer": "^1.12.1",
     "save": "^2.3.3"
   }
 }
