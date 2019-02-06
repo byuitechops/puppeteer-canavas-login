@@ -5,7 +5,6 @@ const button = 'button[type=submit]';
 var browser;
 
 async function login(inputs) {
-    // set the view window for puppeteer
     browser = await puppeteer.launch({
         headless: false,
         defaultViewport: {
@@ -18,14 +17,14 @@ async function login(inputs) {
     });
 
     var pages = await browser.pages();
-    // set the default amount of pages opened to one
     var page = pages[0];
 
 
-    // go to the canvas login and input the login and password
+
     await page.goto('https://byui.instructure.com/login/canvas', {
         waitUntil: ['load', 'domcontentloaded']
     });
+    
     await page.waitForSelector(userNameInput)
     await page.type(userNameInput, inputs.userName);
     await page.type(passWordInput, inputs.passWord);
@@ -41,9 +40,13 @@ async function logout() {
 
 }
 
+async function newPage(){
+    return await browser.newPage();
+}
 
 module.exports = {
 
     login: login,
-    logout: logout
+    logout: logout,
+    newPage: newPage
 }
