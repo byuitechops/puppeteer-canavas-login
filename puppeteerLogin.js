@@ -5,6 +5,7 @@ const button = 'button[type=submit]';
 var browser;
 
 async function login(inputs) {
+	// set the view window for puppeteer
     browser = await puppeteer.launch({
         headless: false,
         defaultViewport: {
@@ -16,11 +17,12 @@ async function login(inputs) {
         // devtools: true
     });
 
-    var pages = await browser.pages();
-    var page = pages[0];
+    // There is always a tab made so just use that one
+	var pages = await browser.pages();
+	var page = pages[0];
 
 
-
+	 // go to the canvas login and input the login and password
     await page.goto('https://byui.instructure.com/login/canvas', {
         waitUntil: ['load', 'domcontentloaded']
     });
@@ -28,7 +30,8 @@ async function login(inputs) {
     await page.waitForSelector(userNameInput)
     await page.type(userNameInput, inputs.userName);
     await page.type(passWordInput, inputs.passWord);
-
+	
+	//click the log in button and wait for it to finish logging in before we return
     await Promise.all([page.waitForSelector('.ic-Dashboard-header__title'), page.click(button)]);
     return page;
 }
