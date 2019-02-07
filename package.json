@@ -2,7 +2,7 @@
   "name": "puppeteer-canavas-login",
   "version": "1.0.0",
   "description": "automated login to canvas",
-  "main": "main.js",
+  "main": "puppeteerLogin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
