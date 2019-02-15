@@ -43,9 +43,9 @@ async function logout() {
 
 }
 
-// closes the specified page or only page
+// closes the specified page
 // NOTE: be sure to logout even if there is only a single page. This ensures the browser is closed as well.
-async function close(page) {
+async function closePage(page) {
     await page.close();
 }
 
@@ -57,6 +57,6 @@ module.exports = {
 
     login: login,
     logout: logout,
-    close: close,
+    closePage: closePage,
     newPage: newPage
 }
