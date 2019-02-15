@@ -5,7 +5,7 @@ const button = 'button[type=submit]';
 var browser;
 
 async function login(inputs) {
-	// set the view window for puppeteer
+    // set the view window for puppeteer
     browser = await puppeteer.launch({
         headless: false,
         defaultViewport: {
@@ -18,20 +18,20 @@ async function login(inputs) {
     });
 
     // There is always a tab made so just use that one
-	var pages = await browser.pages();
-	var page = pages[0];
+    var pages = await browser.pages();
+    var page = pages[0];
 
 
-	 // go to the canvas login and input the login and password
+    // go to the canvas login and input the login and password
     await page.goto('https://byui.instructure.com/login/canvas', {
         waitUntil: ['load', 'domcontentloaded']
     });
-    
+
     await page.waitForSelector(userNameInput)
     await page.type(userNameInput, inputs.userName);
     await page.type(passWordInput, inputs.passWord);
-	
-	//click the log in button and wait for it to finish logging in before we return
+
+    //click the log in button and wait for it to finish logging in before we return
     await Promise.all([page.waitForSelector('.ic-Dashboard-header__title'), page.click(button)]);
     return page;
 }
@@ -43,7 +43,13 @@ async function logout() {
 
 }
 
-async function newPage(){
+// closes the specified page or only page
+// NOTE: be sure to logout even if there is only a single page. This ensures the browser is closed as well.
+async function close(page) {
+    await page.close();
+}
+
+async function newPage() {
     return await browser.newPage();
 }
 
@@ -51,5 +57,6 @@ module.exports = {
 
     login: login,
     logout: logout,
+    close: close,
     newPage: newPage
 }
