@@ -4,8 +4,12 @@ const passWordInput = '#pseudonym_session_password';
 const button = 'button[type=submit]';
 var domain;
 var browser;
+var headless = false;
 
 async function login(inputs) {
+    if (inputs.headless === true) {
+        headless = true;
+    }
     // set the view window for puppeteer
     browser = await puppeteer.launch({
         headless: false,
@@ -14,8 +18,9 @@ async function login(inputs) {
             height: 1080
         },
         args: ['--start-maximized'],
+        headless: headless,
         // args: ['--start-maximized', '--debug-devtools'],
-        devtools: true
+        // devtools: true
     });
 
     // There is always a tab made so just use that one
