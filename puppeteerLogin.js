@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const userNameInput = '#pseudonym_session_unique_id';
 const passWordInput = '#pseudonym_session_password';
 const button = 'button[type=submit]';
+var domain;
 var browser;
 
 async function login(inputs) {
@@ -14,16 +15,24 @@ async function login(inputs) {
         },
         args: ['--start-maximized'],
         // args: ['--start-maximized', '--debug-devtools'],
-        // devtools: true
+        devtools: true
     });
 
     // There is always a tab made so just use that one
     var pages = await browser.pages();
     var page = pages[0];
 
+    // the domain is defaulted to be 'byui.instructure.com' but can be overwritten
+    // by giving 'inputs' a URL key
+    if (inputs.url !== undefined) {
+        domain = inputs.url;
+    } else {
+        domain = 'byui.instructure.com';
+        inputs.url = 'byui.instructure.com';
+    }
 
     // go to the canvas login and input the login and password
-    await page.goto('https://byui.instructure.com/login/canvas', {
+    await page.goto(`https://${domain}/login/canvas`, {
         waitUntil: ['load', 'domcontentloaded']
     });
 
@@ -38,13 +47,9 @@ async function login(inputs) {
 
 // close the browser, killing the session when done.
 async function logout() {
-
     await browser.close();
-
 }
 
-// closes the specified page
-// NOTE: be sure to logout even if there is only a single page. This ensures the browser is closed as well.
 async function closePage(page) {
     await page.close();
 }
@@ -54,7 +59,6 @@ async function newPage() {
 }
 
 module.exports = {
-
     login: login,
     logout: logout,
     closePage: closePage,
