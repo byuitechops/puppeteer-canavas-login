@@ -2,26 +2,23 @@ const puppeteer = require('puppeteer');
 const userNameInput = '#pseudonym_session_unique_id';
 const passWordInput = '#pseudonym_session_password';
 const button = 'button[type=submit]';
-var domain;
 var browser;
-var headless = false;
 
 async function login(inputs) {
-    if (inputs.headless === true) {
-        headless = true;
-    }
-    // set the view window for puppeteer
-    browser = await puppeteer.launch({
-        headless: false,
+    var launchOptionsDefault = {
         defaultViewport: {
             width: 1900,
             height: 1080
         },
         args: ['--start-maximized'],
-        headless: headless,
+        headless: false,
         // args: ['--start-maximized', '--debug-devtools'],
-        // devtools: true
-    });
+        devtools: false
+    };
+    var launchOptions = Object.assign(launchOptionsDefault, inputs.launchOptions);
+
+    // set the view window for puppeteer
+    browser = await puppeteer.launch(launchOptions);
 
     // There is always a tab made so just use that one
     var pages = await browser.pages();
@@ -29,15 +26,10 @@ async function login(inputs) {
 
     // the domain is defaulted to be 'byui.instructure.com' but can be overwritten
     // by giving 'inputs' a URL key
-    if (inputs.url !== undefined) {
-        domain = inputs.url;
-    } else {
-        domain = 'byui.instructure.com';
-        inputs.url = 'byui.instructure.com';
-    }
+    var subdomain = inputs.subdomain || 'byui.instructure.com';
 
     // go to the canvas login and input the login and password
-    await page.goto(`https://${domain}/login/canvas`, {
+    await page.goto(`https://${subdomain}/login/canvas`, {
         waitUntil: ['load', 'domcontentloaded']
     });
 
